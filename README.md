@@ -1,5 +1,35 @@
 # Expense_Tracker
 
+**Télécharger le projet :**
+```
+https://github.com/NathanielSlw/Expense_Tracker.git
+cd Expense_Tracker
+```
+
+## Commandes Git de base
+
+**1. Récupérer les dernières modifications (avant de commencer à travailler) :**
+```
+git checkout develop       # Assure-toi d'être sur la branche 'develop'
+git pull origin develop     # Récupérer les dernières modifications de la branche 'develop'
+```
+
+2. **Faire tes changements (éditer le code)** : : Tu fais tes modifications dans les fichiers nécessaires (par exemple, dans `frontend/` ou `backend/`).
+3. **Ajouter les fichiers modifiés pour le commit :**
+```
+git add .   # Ajoute tous les fichiers modifiés
+# OU
+git add <nom-du-fichier>  # Pour ajouter un fichier spécifique
+```
+4. **Valider les modifications avec un commit :**
+```
+git commit -m "Description des changements effectués"
+```
+5. **Pousser tes changements sur GitHub :** Une fois ton commit effectué, tu pousses les changements sur la branche `develop` :
+```
+git push origin develop
+```
+
 ## Langages utilisées 
 
 - **Frontend :** Angular avec une page listant les dépenses dans un tableau (ag-grid) et un graphique montrant la répartition des dépenses par catégorie (HighCharts).
