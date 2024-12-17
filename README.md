@@ -37,11 +37,6 @@ npx tsc && node dist/index.js
 ---
 ## Commandes Git de base
 
-```
-https://github.com/NathanielSlw/Expense_Tracker.git
-cd Expense_Tracker
-```
-
 **1. Récupérer les dernières modifications (avant de commencer à travailler) :**
 ```
 git checkout develop       # Assure-toi d'être sur la branche 'develop'
