@@ -130,13 +130,13 @@ git push origin develop
 ### 2. Créer les modèles Sequelize ✅
 - Créer les modèles **User**, **Account** et **Transaction** dans `src/models/` pour définir les tables et leurs relations.
 ### 3. Créer les Routes REST avec Express ✅
-**API CRUD pour `users`, `accounts`, et `transactions`** :
-	- Crée des routes simples pour chaque ressource :
-		- `/users` : POST pour créer un utilisateur, GET pour récupérer les utilisateurs.
-		- `/accounts` : POST pour créer un compte, GET pour lister les comptes.
-		- `/transactions` : POST pour créer une transaction, GET pour récupérer les transactions.
-Utiliser Express pour définir les routes et Sequelize pour interagir avec la base de données.
 
+**API CRUD pour `users`, `accounts`, et `transactions`** :
+- Crée des routes simples pour chaque ressource :
+	- `/users` : POST pour créer un utilisateur, GET pour récupérer les utilisateurs.
+	- `/accounts` : POST pour créer un compte, GET pour lister les comptes.
+	- `/transactions` : POST pour créer une transaction, GET pour récupérer les transactions.
+Utiliser Express pour définir les routes et Sequelize pour interagir avec la base de données.
 
 Pour lancer : 
 ```
