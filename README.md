@@ -14,7 +14,7 @@ ng serve
 
 # Backend
 cd backend
-npm run start
+npx ts-node index.ts
 ```
 
 ## Commandes Git de base
