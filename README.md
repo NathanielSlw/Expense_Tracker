@@ -6,6 +6,17 @@ https://github.com/NathanielSlw/Expense_Tracker.git
 cd Expense_Tracker
 ```
 
+Commandes pour lancer le projet :
+```
+# Frontend
+cd frontend
+ng serve
+
+# Backend
+cd backend
+npm run start
+```
+
 ## Commandes Git de base
 
 **1. Récupérer les dernières modifications (avant de commencer à travailler) :**
