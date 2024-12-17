@@ -1,12 +1,29 @@
 # Expense_Tracker
 
+### Sommaire
+1. Télécharger le projet
+2. Commandes pour lancer le projet
+    - Frontend
+    - Backend
+3. Commandes Git de base
+4. Tables
+5. Plan étape par étape
+    - Phase 1 : Préparation
+    - Phase 2 : Backend
+    - Phase 3 : Frontend 
+    - Phase 4 : Fonctionnalités Avancées
+
+### Télécharger et lancer le projet
+
 **Télécharger le projet :**
 ```
 https://github.com/NathanielSlw/Expense_Tracker.git
 cd Expense_Tracker
 ```
 
-Commandes pour lancer le projet :
+Modifier le fichier `config.ts` dans le dossier `/backend/src/config/config.ts` et changer le Nom de la database et les identifiants (username et mot de passe)
+
+**Commandes pour lancer le projet :**
 ```
 # Frontend
 cd frontend
@@ -14,10 +31,16 @@ ng serve
 
 # Backend
 cd backend
-npx ts-node index.ts
+npx tsc && node dist/index.js
 ```
 
+---
 ## Commandes Git de base
+
+```
+https://github.com/NathanielSlw/Expense_Tracker.git
+cd Expense_Tracker
+```
 
 **1. Récupérer les dernières modifications (avant de commencer à travailler) :**
 ```
@@ -41,15 +64,7 @@ git commit -m "Description des changements effectués"
 git push origin develop
 ```
 
-## Langages utilisées 
-
-- **Frontend :** Angular avec une page listant les dépenses dans un tableau (ag-grid) et un graphique montrant la répartition des dépenses par catégorie (HighCharts).
-- **Backend :** NodeJS avec PostgreSQL pour gérer les dépenses et les catégories.
-- **Features avancées :**
-    - **WebSocket :** Mise à jour en temps réel des graphiques si une nouvelle dépense est ajoutée.
-- **Atouts :**
-    - Concept simple avec des fonctionnalités réutilisables.
-    - Parfait pour illustrer une application de gestion.
+---
 
 ## Tables 
 
@@ -85,96 +100,130 @@ git push origin develop
 - `user_id` (FK vers `users`) : Propriétaire de la transaction (utile si plusieurs utilisateurs gèrent des comptes différents).
 - `date` : Date et heure de la transaction.
 
+---
+
 # Plan étape par étape 
 
-## Phase 1 : Préparation (2h à 3h)
+## Phase 1 : Préparation (2h à 3h) ✅
 
-### 1. Initialisation du projet
+#### 1. Initialisation du projet ✅
 
 - Crée un repository GitHub avec deux dossiers :
     - `frontend/` (pour Angular).
-    - `backend/` (pour NodeJS ou Spring Boot).
+    - `backend/` (pour NodeJS).
 - Ajoute un fichier `.gitignore` pour exclure :
     - `node_modules/` pour le frontend et backend.
-    - `target/` si tu choisis Spring Boot.
 
-### 2. Choix des outils
+#### 2. Choix des outils ✅
 
 - **Frontend : Angular**
-    - Installe Angular CLI (`npm install -g @angular/cli`).
-    - Crée le projet Angular dans le dossier `frontend`.
-        `ng new frontend`
-- **Backend : NodeJS avec Express et TypeORM**
-    - Initialise le backend avec TypeScript :
-        `mkdir backend && cd backend npm init -y npm install express typeorm reflect-metadata pg typescript @types/express npx tsc --init`
-    - Crée une structure simple avec :
-        - `src/` : Pour le code TypeScript.
-        - `ormconfig.json` : Configuration TypeORM.
-- **Base de données : PostgreSQL**
-    - Prépare une base PostgreSQL locale nommée `expenses_tracker` avec un utilisateur et un mot de passe simple.
-    - Crée les tables de base dans la DB (cf. modèle des tables précédemment discuté).
+- **Backend : NodeJS avec Express et Sequelize**
+	- Crée une structure simple :
+		- `src/`: Pour le code TypeScript.
+		- `src/config`: Pour les fichiers de configuration.
+		- `src/models`: Pour les modèles Sequelize.
+		- `src/routes`: Pour les routes REST.
+* **Base de données : PostgreSQL**
+	- Prépare une base PostgreSQL locale nommée `expense_trackerdb` avec un utilisateur et un mot de passe simple.
+	- Crée les tables de base dans la base de données avec Sequelize.
 
----
 
-## Phase 2 : Backend Minimal (4h à 5h)
+## Phase 2 : Back-end 
 
-### 1. Configuration
+### 1. Configuration de Sequelize ✅
+- Créer un fichier de configuration `src/config/config.ts` pour connecter Sequelize à PostgreSQL.
+### 2. Créer les modèles Sequelize ✅
+- Créer les modèles **User**, **Account** et **Transaction** dans `src/models/` pour définir les tables et leurs relations.
+### 3. Créer les Routes REST avec Express ✅
+**API CRUD pour `users`, `accounts`, et `transactions`** :
+	- Crée des routes simples pour chaque ressource :
+		- `/users` : POST pour créer un utilisateur, GET pour récupérer les utilisateurs.
+		- `/accounts` : POST pour créer un compte, GET pour lister les comptes.
+		- `/transactions` : POST pour créer une transaction, GET pour récupérer les transactions.
+Utiliser Express pour définir les routes et Sequelize pour interagir avec la base de données.
 
-- Configure TypeORM avec `ormconfig.json` :
 
-### 2. Créer les entités
-- **`users`**, **`accounts`**, et **`transactions`** sous `src/entity/`.
+Pour lancer : 
+```
+cd backend
+npx tsc && node dist/index.js
+```
 
-### 3. Créer les routes REST
-- Mets en place des routes CRUD simples avec Express :
-    - **`/users`** : Créer un utilisateur, récupérer la liste.
-    - **`/accounts`** : Ajouter des comptes, lister les comptes.
-    - **`/transactions`** :
-        - Ajouter une transaction.
-        - Lister les transactions par utilisateur.
+### 4. Swagger (OpenAPI) - Documentation de l'API 🛑
 
-### 4. Swagger (OpenAPI)
+- **Installer Swagger** pour la documentation automatique de l'API :
+    - Installe `swagger-ui-express` et `swagger-jsdoc` :
+```
+npm install swagger-ui-express swagger-jsdoc
+```
 
-- Installe `swagger-ui-express` pour documenter les API.
-    `npm install swagger-ui-express`
-- Ajoute une documentation simple pour chaque endpoint.
+- Crée un fichier de configuration Swagger (`swagger.ts` ou `swagger.json`) pour définir les informations de base de l'API (titre, description, version).
+- Ajoute les annotations Swagger dans tes routes Express pour générer la documentation automatiquement.
+- Configure Swagger dans ton application Express pour qu'il génère et serve la documentation de l'API via un endpoint comme `/api-docs`.
+- Exemple d'intégration avec une route Express :
+```
+const swaggerJSDoc = require('swagger-jsdoc');
+const swaggerUi = require('swagger-ui-express');
 
----
+const swaggerOptions = {
+    swaggerDefinition: {
+        openapi: '3.0.0',
+        info: {
+            title: 'Expenses Tracker API',
+            description: 'API for managing user expenses',
+            version: '1.0.0'
+        }
+    },
+    apis: ['./src/routes/*.ts'], // Spécifie le dossier des routes
+};
+
+const swaggerDocs = swaggerJSDoc(swaggerOptions);
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
+```
+
+Tu pourras maintenant accéder à la documentation de ton API via l'URL `/api-docs` dans ton application Express.
 
 ## Phase 3 : Frontend Minimal (4h à 5h)
 
-### 1. Configuration et structure
+### 1. Configuration du projet Angular
 
-- Configure Angular dans le dossier `frontend/`.
-- Ajoute les bibliothèques nécessaires :
-    - `ag-grid-angular` pour le tableau des transactions.
-    - `highcharts` pour les graphiques.
+- **Création du projet** Angular dans le dossier `frontend/` avec Angular CLI.
+- **Installation des dépendances** nécessaires :
+    - `ag-grid-angular` pour afficher les transactions.
+    - `highcharts` pour afficher les graphiques.
 
-### 2. Composants Angular
+### 2. Composants principaux
 
-- Crée les composants principaux :
-    - **`LoginComponent` :** Formulaire de connexion simple.
-    - **`DashboardComponent` :** Tableau de bord avec le tableau des dépenses et le graphique.
-    - **`TransactionFormComponent` :** Formulaire pour ajouter une transaction.
+- **`LoginComponent`** : Créer un composant pour le formulaire de connexion (pas de logique de session pour l'instant, juste un formulaire).
+- **`DashboardComponent`** : Créer un composant pour afficher le tableau des transactions avec Ag-Grid et un graphique avec HighCharts.
+- **`TransactionFormComponent`** : Créer un formulaire pour ajouter des transactions.
 
 ### 3. Communication avec le Backend
 
-- Installe `@angular/common/http` et configure un service Angular pour appeler les endpoints REST (`/transactions`, `/accounts`).
+- **Services Angular** : Créer un service Angular pour gérer la communication avec l'API REST du backend.
+    - Utiliser `HttpClient` pour envoyer des requêtes GET/POST vers les routes backend (`/transactions`, `/accounts`).
+    - Gérer la logique de récupération des transactions et d'affichage des données dans le tableau.
 
-### 4. Affichage minimal
-- Utilise **Ag-Grid** pour afficher la liste des transactions.
-- Utilise **HighCharts** pour afficher la répartition des transactions par catégorie (requête SQL `GROUP BY`).
+### 4. Affichage des données
+
+- **Ag-Grid** : Utiliser Ag-Grid pour afficher les transactions sous forme de tableau.
+    - Afficher les champs principaux comme `amount`, `description`, `category`, `account_name`.
+- **HighCharts** : Utiliser HighCharts pour afficher un graphique circulaire ou à barres représentant la répartition des dépenses par catégorie.
 
 ---
 
-## Phase 4 : Fonctionnalités avancées (3h à 4h)
+## Phase 4 : Fonctionnalités Avancées (3h à 4h)
 
-### 1. WebSocket pour mises à jour en temps réel
+### 1. WebSocket pour Mises à Jour en Temps Réel
 
-- Installe `ws` côté backend :
-    `npm install ws`
-- Configure un WebSocket pour notifier le frontend en cas de nouvelle transaction.
+- **Mise à jour en temps réel des graphiques et du tableau** : Utilise WebSocket pour notifier le frontend dès qu'une nouvelle transaction est ajoutée.
+    - Installe et configure un serveur WebSocket dans le backend.
+    - Envoie une notification au frontend lorsqu'une transaction est créée afin de mettre à jour les données en temps réel.
 
 ### 2. Auto-complétion pour les catégories
 
-- Implémente une recherche avec auto-complétion sur les catégories dans le formulaire d’ajout de transaction.
+- **Implémentation de l'auto-complétion** dans le formulaire d'ajout de transaction pour les catégories (par exemple, afficher les catégories déjà existantes lors de la saisie).
+    - Utiliser un champ de recherche ou un composant comme **Angular Material Autocomplete** pour implémenter cette fonctionnalité.
+
+---
+
